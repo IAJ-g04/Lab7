@@ -14,16 +14,14 @@ namespace Assets.Scripts.DecisionMakingActions
         public override float GetGoalChange(Goal goal)
         {
             var change = base.GetGoalChange(goal);
-            //TODO: implement
-            throw new NotImplementedException();
+            if (goal.Name == AutonomousCharacter.EAT_GOAL) change -= 2.0f;
+            return change;
         }
 
         public override bool CanExecute()
         {
             if (!base.CanExecute()) return false;
-
-            //TODO: implement
-            throw new NotImplementedException();
+            return this.Character.GameManager.characterData.Arrows >= 1 ;
         }
 
         public override bool CanExecute(WorldModel worldModel)
@@ -32,9 +30,8 @@ namespace Assets.Scripts.DecisionMakingActions
             {
                 return false;
             }
-
-            //TODO: implement
-            throw new NotImplementedException();
+            var arr = (int)worldModel.GetProperty(Properties.ARROWS);
+            return arr >= 1;
         }
 
         public override void Execute()
@@ -48,8 +45,14 @@ namespace Assets.Scripts.DecisionMakingActions
         {
             base.ApplyActionEffects(worldModel);
 
-            //TODO: implement
-            throw new NotImplementedException();
+            var eatValue = worldModel.GetGoalValue(AutonomousCharacter.EAT_GOAL);
+            worldModel.SetGoalValue(AutonomousCharacter.EAT_GOAL, eatValue - 2.0f);
+
+            var hunger = (float)worldModel.GetProperty(Properties.HUNGER);
+            worldModel.SetProperty(Properties.HUNGER, hunger - 2.0f);
+
+            //disables the target object so that it can't be reused again
+            worldModel.SetProperty(this.Target.name, false);
         }
     }
 }
