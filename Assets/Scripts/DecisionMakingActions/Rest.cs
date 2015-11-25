@@ -17,26 +17,31 @@ namespace Assets.Scripts.DecisionMakingActions
 
         public override float GetGoalChange(Goal goal)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            var change = base.GetGoalChange(goal);
+            if (goal.Name == AutonomousCharacter.REST_GOAL) change -= 0.1f;
+            return change;
         }
 
         public override bool CanExecute()
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            if (!base.CanExecute()) return false;
+            return this.Character.GameManager.characterData.Energy < 4.0f;
         }
 
         public override bool CanExecute(WorldModel worldModel)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            if (!base.CanExecute(worldModel)) return false;
+
+            var energy = (float)worldModel.GetProperty(Properties.ENERGY);
+            return energy < 4.0f;
         }
 
         public override void ApplyActionEffects(WorldModel worldModel)
         {
-            //TODO: implement
-            throw new NotImplementedException();
+            base.ApplyActionEffects(worldModel);
+
+            var restValue = worldModel.GetGoalValue(AutonomousCharacter.REST_GOAL);
+            worldModel.SetGoalValue(AutonomousCharacter.REST_GOAL, restValue - 0.1f);
         }
 
         public override void Execute()
