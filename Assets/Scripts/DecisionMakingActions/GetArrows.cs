@@ -14,16 +14,14 @@ namespace Assets.Scripts.DecisionMakingActions
         public override bool CanExecute()
         {
             if (!base.CanExecute()) return false;
-            //TODO: implement
-            throw new NotImplementedException();
+            return this.Character.GameManager.characterData.Arrows < 10.0f;
         }
 
         public override bool CanExecute(WorldModel worldModel)
         {
             if (!base.CanExecute(worldModel)) return false;
-
-            //TODO: implement
-            throw new NotImplementedException();
+            var arrows = (float)worldModel.GetProperty(Properties.ARROWS);
+            return arrows < 10.0f;
         }
 
         public override void Execute()
@@ -37,8 +35,11 @@ namespace Assets.Scripts.DecisionMakingActions
         {
             base.ApplyActionEffects(worldModel);
 
-            //TODO: implement
-            throw new NotImplementedException();
+            var arrows = (float)worldModel.GetProperty(Properties.ARROWS);
+            worldModel.SetProperty(Properties.ARROWS, arrows + 10.0f);
+
+            //disables the target object so that it can't be reused again
+            worldModel.SetProperty(this.Target.name, false);
         }
 
 

@@ -16,22 +16,21 @@ namespace Assets.Scripts.DecisionMakingActions
         public override float GetGoalChange(Goal goal)
         {
             var change = base.GetGoalChange(goal);
-            //TODO: implement
-            throw new NotImplementedException();
+            if (goal.Name == AutonomousCharacter.GET_RICH_GOAL) change -= 0.5f;
+            return change;
         }
 
         public override bool CanExecute()
         {
             if (!base.CanExecute()) return false;
-            //TODO: implement
-            throw new NotImplementedException();
+            return this.Character.GameManager.characterData.Energy > 0.1f;
         }
 
         public override bool CanExecute(WorldModel worldModel)
         {
             if (!base.CanExecute(worldModel)) return false;
-            //TODO: implement
-            throw new NotImplementedException();
+            var energy = (float)worldModel.GetProperty(Properties.ENERGY);
+            return energy > 0.1f;
         }
 
         public override void Execute()
@@ -44,8 +43,11 @@ namespace Assets.Scripts.DecisionMakingActions
         {
             base.ApplyActionEffects(worldModel);
 
-            //TODO: implement
-            throw new NotImplementedException();
+            var money = (float)worldModel.GetProperty(Properties.MONEY);
+            worldModel.SetProperty(Properties.MONEY, money + 5.0f);
+
+            //disables the target object so that it can't be reused again
+            worldModel.SetProperty(this.Target.name, false);
         }
     }
 }
