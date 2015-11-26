@@ -55,7 +55,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             {
                 float currentValue = this.Models[this.CurrentDepth].CalculateDiscontentment(this.Goals);
 
-                if(currentValue >= MAX_DEPTH)
+                if(this.CurrentDepth >= MAX_DEPTH)
                 {
                     if(currentValue < this.BestDiscontentmentValue)
                     {
