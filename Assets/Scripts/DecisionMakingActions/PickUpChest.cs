@@ -43,9 +43,12 @@ namespace Assets.Scripts.DecisionMakingActions
         {
             base.ApplyActionEffects(worldModel);
 
-            var money = (float)worldModel.GetProperty(Properties.MONEY);
-            worldModel.SetProperty(Properties.MONEY, money + 5.0f);
-
+            var grich = worldModel.GetGoalValue(AutonomousCharacter.GET_RICH_GOAL);
+            worldModel.SetGoalValue(AutonomousCharacter.REST_GOAL, grich - 0.5f);
+            
+            var money = (int)worldModel.GetProperty(Properties.MONEY);
+            worldModel.SetProperty(Properties.MONEY, money + 5);
+            
             //disables the target object so that it can't be reused again
             worldModel.SetProperty(this.Target.name, false);
         }

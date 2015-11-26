@@ -37,6 +37,9 @@ namespace Assets.Scripts.DecisionMakingActions
 
             var restValue = worldModel.GetGoalValue(AutonomousCharacter.REST_GOAL);
             worldModel.SetGoalValue(AutonomousCharacter.REST_GOAL,restValue-1.0f);
+
+            var energy = (float)worldModel.GetProperty(Properties.ENERGY);
+            worldModel.SetProperty(Properties.ENERGY, energy + 1.0f);
         }
 
         public override void Execute()
