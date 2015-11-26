@@ -36,34 +36,34 @@ namespace Assets.Scripts
         public void Update ()
         {
             //PAN
-            //if ( Input.GetKey("mouse 2") )
-            //{
-            //    //(Input.mousePosition.x - Screen.width * 0.5)/(Screen.width * 0.5)
-			
-            //    transform.Translate(Vector3.right * Time.deltaTime * PanSpeed * (Input.mousePosition.x - Screen.width * 0.5f)/(Screen.width * 0.5f), Space.World);
-            //    transform.Translate(Vector3.forward * Time.deltaTime * PanSpeed * (Input.mousePosition.y - Screen.height * 0.5f)/(Screen.height * 0.5f), Space.World);
-			
-            //}
-            //else
-            //{
-            //    if ( Input.GetKey("d") || Input.mousePosition.x >= Screen.width * (1 - ScrollEdge) )
-            //    {
-            //        transform.Translate(Vector3.right * Time.deltaTime * ScrollSpeed, Space.World);
-            //    }
-            //    else if ( Input.GetKey("a") || Input.mousePosition.x <= Screen.width * ScrollEdge )
-            //    {
-            //        transform.Translate(Vector3.right * Time.deltaTime * -ScrollSpeed, Space.World);
-            //    }
-			
-            //    if ( Input.GetKey("w") || Input.mousePosition.y >= Screen.height * (1 - ScrollEdge) )
-            //    {
-            //        transform.Translate(Vector3.forward * Time.deltaTime * ScrollSpeed, Space.World);
-            //    }
-            //    else if ( Input.GetKey("s") || Input.mousePosition.y <= Screen.height * ScrollEdge )
-            //    {
-            //        transform.Translate(Vector3.forward * Time.deltaTime * -ScrollSpeed, Space.World);
-            //    }
-            //}
+            if (Input.GetMouseButton(1))
+            {
+                //(Input.mousePosition.x - Screen.width * 0.5)/(Screen.width * 0.5)
+
+                transform.Translate(Vector3.right * Time.deltaTime * PanSpeed * (Input.mousePosition.x - Screen.width * 0.5f) / (Screen.width * 0.5f), Space.World);
+                transform.Translate(Vector3.forward * Time.deltaTime * PanSpeed * (Input.mousePosition.y - Screen.height * 0.5f) / (Screen.height * 0.5f), Space.World);
+
+            }
+            else
+            {
+                if (Input.GetKey("d") || Input.mousePosition.x >= Screen.width * (1 - ScrollEdge))
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * ScrollSpeed, Space.World);
+                }
+                else if (Input.GetKey("a") || Input.mousePosition.x <= Screen.width * ScrollEdge)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * -ScrollSpeed, Space.World);
+                }
+
+                if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height * (1 - ScrollEdge))
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * ScrollSpeed, Space.World);
+                }
+                else if (Input.GetKey("s") || Input.mousePosition.y <= Screen.height * ScrollEdge)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * -ScrollSpeed, Space.World);
+                }
+            }
 
             //focus x and z on the character, but maintain the camera's y (so that we can zoom in and out)
             this.transform.position = new Vector3(this.CharacterToFollow.transform.position.x, this.transform.position.y,this.CharacterToFollow.transform.position.z);
